@@ -1,0 +1,138 @@
+Object Detection in Autonomous Vehicles 
+Part One  
+Role of Perception
+
+Perception enables an autonomous vehicle to understand its environment using sensor data (primarily cameras). It must identify objects such as vehicles, pedestrians, traffic signs, and lanes, and determine their positions under varying lighting and weather conditions. Object detection is a core component of this perception pipeline.
+CNN (Convolutional Neural Networks)
+CNNs are used as the backbone for feature extraction.
+
+Pipeline:
+Input Image → Convolution → Activation → Pooling → Repeat → Feature Maps → (later used for detection)
+
+Convolution layers learn spatial features such as edges, textures, and shapes.
+Activation functions (e.g., ReLU) introduce non-linearity.
+Pooling layers reduce spatial dimensions while preserving important features.
+
+The output of a CNN is a feature map that represents high-level visual information.
+
+R-CNN Family (Two-Stage Detectors)
+
+R-CNN
+
+Step 1: Generate region proposals using selective search
+Step 2: Apply CNN to each region independently
+Limitation: Very slow due to repeated CNN computation.
+
+Fast R-CNN
+
+CNN is applied once to the full image to generate a feature map
+Region proposals are applied on the feature map
+Limitation: Still relies on external region proposal methods.
+
+Faster R-CNN
+
+Introduces a Region Proposal Network (RPN) to generate proposals within the network
+Fully integrated and learnable pipeline
+
+Pipeline:
+Image → CNN Backbone → Feature Map → RPN → Region Proposals → ROI Align → Detection Head
+
+Key Components in Faster R-CNN
+
+Anchors
+
+Predefined bounding boxes with different scales and aspect ratios
+Serve as reference templates for object detection
+The model learns to adjust these anchors to better fit objects
+
+Bounding Box Regression
+
+Predicts offsets (dx, dy, dw, dh) to refine anchor boxes into accurate object boundaries
+
+IoU (Intersection over Union)
+
+Measures overlap between predicted bounding box and ground truth
+Used for training and evaluation
+
+NMS (Non-Max Suppression)
+
+Removes duplicate overlapping bounding boxes
+Process:
+Sort boxes by confidence score
+Select the highest scoring box
+Remove boxes with IoU above a threshold
+Repeat until remaining boxes are sufficiently distinct
+
+ROI Align
+
+Extracts fixed size feature maps from proposed regions
+Avoids rounding errors present in ROI Pooling
+Maintains spatial accuracy, which is critical for detection and segmentation tasks
+Mask R-CNN
+
+Mask R-CNN extends Faster R-CNN by adding instance segmentation.
+
+Pipeline:
+Backbone CNN → RPN → ROI Align → Detection Heads
+
+Outputs per region:
+
+Classification head: determines object class
+Bounding box head: refines object location
+Mask head: predicts pixel level segmentation mask
+
+The mask head outputs a binary mask for each detected object, providing pixel level localization in addition to bounding boxes.
+
+YOLO (You Only Look Once)
+
+YOLO is a one-stage object detection model.
+
+Pipeline:
+Image → CNN → Grid-based Prediction → Bounding Boxes + Class Probabilities + Confidence Scores → NMS
+
+Grid System
+
+The image is divided into a grid
+Each grid cell is responsible for detecting objects whose center lies within it
+Each cell predicts bounding boxes, objectness confidence, and class probabilities
+
+Anchors in YOLO
+
+Predefined anchor boxes are used as priors
+The model predicts offsets relative to these anchors
+
+NMS in YOLO
+
+Multiple predictions are filtered using Non-Max Suppression to remove duplicate detections
+Comparison of Approaches
+
+R-CNN Family
+
+Two-stage approach
+Region proposals followed by classification
+Higher accuracy but slower
+
+YOLO
+
+One-stage approach
+Direct prediction of bounding boxes and classes
+Optimized for speed and real-time performance
+
+Summary of Evolution
+
+R-CNN: Region proposals generated externally, CNN applied per region
+Fast R-CNN: Shared CNN feature map, still uses external proposals
+Faster R-CNN: Region Proposal Network replaces external proposals
+Mask R-CNN: Adds instance segmentation via mask prediction head
+YOLO: Single-pass grid-based detection with anchors and direct predictions
+
+Role in Autonomous Vehicles
+
+Object detection is part of the perception module, which typically includes:
+
+Object detection
+Segmentation
+Depth estimation (stereo vision)
+Tracking and sensor fusion 
+
+These components together allow the vehicle to perceive and interpret its environment for downstream planning and control tasks.
