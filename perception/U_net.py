@@ -13,7 +13,7 @@ def encoder_block(x, filters):
 
 #decode block
 #unsampling - Increases resolution
-#Combine with earlier features from encoder (skip connection)
+#Combine with earlier features from encoder 
 def decoder_block(x, skip, filters):
     x = layers.Conv2DTranspose(filters, (2,2), strides=2, padding='same')(x)  # ↑ increases size
     x = layers.Concatenate()([x, skip])  
