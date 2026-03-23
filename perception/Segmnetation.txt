@@ -1,0 +1,168 @@
+What is Segmentation?
+
+Segmentation is a supervised learning task where a model assigns a label to every pixel in an image.
+
+Each pixel is given a class label
+Pixels with the same label belong to the same region or object
+Different classes are typically visualized using different colors
+
+Core Idea
+
+Input: Image
+Output: A matrix of the same height and width as the image
+Each value in the matrix represents the class label of the corresponding pixel
+
+Example:
+
+Input Image: 224 × 224
+Output Mask: 224 × 224
+Each pixel → class probability or label
+
+Why Normal CNNs Are Not Enough
+
+Standard CNNs lose spatial information due to pooling and fully connected layers
+Segmentation requires pixel-level predictions while preserving spatial structure
+
+Solution: Fully Convolutional Networks (FCNs)
+
+Remove fully connected layers
+Use only convolutional layers
+Preserve spatial dimensions through upsampling
+
+Pipeline:
+
+Feature Map → Upsampling → Pixel-wise prediction
+
+Encoder–Decoder Architecture
+
+Encoder (Downsampling)
+
+Input image passes through convolution layers
+Extracts features such as edges, shapes, and textures
+Reduces spatial resolution
+
+Bottleneck
+
+Most compressed representation of the input
+Contains high-level abstract features
+
+Decoder (Upsampling)
+
+Restores spatial resolution
+Reconstructs the segmentation mask
+Produces pixel-wise class predictions
+
+Output
+
+Segmentation mask of the same size as the input image
+
+Types of Segmentation
+
+Semantic Segmentation
+
+Assigns a class label to every pixel
+Does not distinguish between different instances of the same class
+
+
+Instance Segmentation
+
+Separates individual object instances
+Each object of the same class is treated separately
+Mask R-CNN is commonly used for this
+
+Panoptic Segmentation
+
+Combines semantic and instance segmentation
+
+Definitions:
+
+Semantic: “What class is this pixel?”
+Instance: “Which object does this pixel belong to?”
+Panoptic: “What class and which object (if applicable)?”
+
+Segmentation vs Object Detection
+
+Object Detection:
+
+Outputs bounding boxes around objects
+
+Semantic Segmentation:
+
+Outputs pixel wise class labels
+
+Instance Segmentation:
+
+Outputs pixel wise labels along with separation of individual objects
+
+Segmentation Output Representation
+
+Output shape: (H, W, C)
+H = height
+W = width
+C = number of classes
+Each pixel contains a probability distribution over classes
+
+Applications in Autonomous Vehicles
+
+Semantic Segmentation:
+
+Road
+Lane
+Sidewalk
+Sky
+
+Instance Segmentation:
+
+Individual cars
+Pedestrians
+Cyclists
+
+Loss Function
+
+Pixel-wise classification is used
+Commonly Cross-Entropy Loss
+Compares predicted class vs ground truth class for each pixel
+
+U-Net Architecture
+
+Input
+→ Encoder (downsampling)
+→ Bottleneck
+→ Decoder (upsampling)
+→ Output segmentation map
+
+Special Feature: Skip Connections
+
+Connections from encoder layers to corresponding decoder layers
+Helps recover spatial details lost during downsampling
+Improves segmentation accuracy
+
+U-Net vs DeepLab
+
+DeepLab Overview
+
+DeepLab is a semantic segmentation model that focuses on multi-scale feature extraction rather than reconstructing the image through a symmetric decoder.
+
+Key Idea:
+
+Analyze the image at different scales and combine the information to predict pixel classes
+
+Pipeline:
+
+Input image
+CNN backbone for feature extraction
+Atrous (dilated) convolutions to preserve resolution while increasing receptive field
+Atrous Spatial Pyramid Pooling (ASPP) for multi-scale feature extraction
+Combine features
+Output segmentation map
+
+Dilated Convolution:
+
+Expands the receptive field without reducing spatial resolution
+Allows the model to capture broader context
+
+Advantages of DeepLab:
+
+Preserves spatial details better than aggressive downsampling
+Handles objects of varying sizes effectively
+Strong performance in scene understanding tasks such as road and urban environment segmentation
