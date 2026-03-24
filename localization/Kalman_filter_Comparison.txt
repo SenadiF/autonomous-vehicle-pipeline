@@ -1,0 +1,32 @@
+Kalman Filter (KF)
+
+Type: Linear filter
+Works for: Linear motion + linear measurements
+How it works:
+   Predict next state using F
+   Correct using measurement H and Kalman gain
+Pros: Simple, fast, easy to implement
+Cons: Fails if system or measurement is nonlinear
+Use case: Straight-line motion, linear sensors
+
+Extended Kalman Filter (EKF)
+
+Type: Nonlinear filter (linearizes measurement)
+Works for: Nonlinear measurements
+How it works:
+    Linearize measurement function using Jacobian
+    Apply standard KF steps
+Pros: Handles some nonlinearity, widely used in robotics
+Cons: Accuracy depends on linearization; may fail if nonlinearity is strong
+Use case: Bearing measurements, radar tracking, simple robot localization
+
+Unscented Kalman Filter (UKF)
+Type: Nonlinear filter (sigma points - sample points arount the mean)
+Works for: Strongly nonlinear systems and measurements
+How it works:
+   Generate sigma points around state
+   Propagate through nonlinear functions
+   Compute mean & covariance from transformed points
+Pros: More accurate than EKF for nonlinear problems
+Cons: Slightly more computationally expensive
+Use case: Complex robot motion, SLAM with nonlinear sensors
