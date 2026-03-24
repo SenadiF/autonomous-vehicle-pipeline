@@ -1,0 +1,62 @@
+Kalman Filter + YOLO Tracking Experiment
+Test 1: Slow Movement
+
+Test:
+Move face slowly in front of the camera.
+
+Observation:
+
+Detection (YOLO) and prediction (Kalman) points move almost together
+Very little difference between them
+Tracking appears smooth and stable
+
+Conclusion:
+When motion is smooth and predictable, the Kalman filter performs very well because its prediction closely matches the actual movement.
+
+Test 2: Fast Movement
+
+Test:
+Move face quickly across the frame.
+
+Observation:
+
+Kalman prediction lags behind the detection
+Green point follows but with slight delay
+Takes a few frames to adjust
+
+Conclusion:
+Kalman filter assumes smooth motion (constant velocity).
+Sudden changes break this assumption, causing temporary lag until the filter adapts.
+
+Test 3: Temporary Occlusion (Cover Face)
+
+Test:
+Cover face or move out of frame briefly.
+
+Observation:
+
+YOLO detection disappears
+Kalman prediction continues moving in the previous direction
+After reappearance, tracking resumes
+
+Conclusion:
+Kalman filter can predict object position even without measurements.
+This is useful for handling occlusions or missed detections.
+
+Test 4: Detection Noise
+
+Test:
+Stay still and observe detection jitter.
+
+Observation:
+
+YOLO detection (red point) slightly jumps
+Kalman output (green point) remains smoother
+
+Conclusion:
+Kalman filter reduces noise by combining prediction and measurement, producing a more stable estimate.
+
+Final Understanding
+YOLO provides noisy position measurements
+Kalman filter predicts motion and corrects using measurements
+Final output is smoother and more reliable than raw detection
