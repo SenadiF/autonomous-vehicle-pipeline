@@ -1,0 +1,74 @@
+Kalman Filter Summary
+
+Purpose: Estimate the true state of a system (e.g., position, velocity) by combining predictions from a motion model with noisy measurements.
+
+Key Components:
+
+State Vector (x): The quantities you want to estimate.
+   Example: position and velocity → x = [x, y, vx, vy]^T
+
+State Transition Matrix (F): Describes how the state evolves over time according to your model.
+   Example: x_new = x + vx * dt, y_new = y + vy * dt
+
+Measurement Matrix (H): Maps the state to the observable measurements.
+   Example: if you can only measure position, H extracts [x, y] from the state vector.
+
+Covariance (P): Represents the uncertainty of the current state estimate.
+  
+Process Noise (Q): Models the unpredictability in the motion (e.g., sudden acceleration or model imperfections).
+
+Measurement Noise (R): Models the uncertainty of the measurements (e.g., sensor jitter).
+
+Kalman Gain (K): Balances trust between the prediction and measurement:
+
+High K → trust measurement more
+
+Low K → trust prediction more
+
+Workflow:
+
+Initialization: Set initial state x and covariance P based on your confidence in the starting estimate.
+
+Prediction Step:
+Predict the next state using the motion model: x_pred = F * x
+
+Update the uncertainty: P_pred = F * P * F^T + Q
+
+Measurement Step:
+Obtain measurement z from sensor 
+
+Update Step:
+Compute Kalman Gain: K = P_pred * H^T * (H * P_pred * H^T + R)^-1
+
+Update state with measurement: x_new = x_pred + K * (z - H * x_pred)
+
+Update covariance: P_new = (I - K * H) * P_pred
+
+Iteration: Repeat prediction and update for every new time step.
+
+Tuning Guidelines:
+
+P: Large → low confidence in initial state, Small → high confidence
+Q: Large → trust motion model less (more unpredictable movement), Small → trust motion more
+R: Large → sensor is noisy, Small → sensor is reliable
+
+Intuition:
+
+Kalman Filter continuously corrects predictions with measurements.
+Prediction smooths the motion; measurement ensures the estimate follows real observations.
+
+Practical Workflow 
+
+Practical workflow
+Initialize:
+ Large P
+ Small Q
+ Moderate R
+
+Run system
+
+Tune:
+ Lag → increase Q
+ Noise → increase R
+
+Iterate until stable
