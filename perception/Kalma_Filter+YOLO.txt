@@ -27,7 +27,9 @@ Takes a few frames to adjust
 Conclusion:
 Kalman filter assumes smooth motion (constant velocity).
 Sudden changes break this assumption, causing temporary lag until the filter adapts.
-
+Why lag happens -  Prediction assumed constant velocity
+                   Real motion changed suddenly
+                   Kalman took time to adjust
 Test 3: Temporary Occlusion (Cover Face)
 
 Test:
