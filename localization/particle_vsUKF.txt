@@ -1,0 +1,20 @@
+UKF
+Points:
+  -Spread nicely around mean
+  -Always symmetric
+  -No resampling
+  -Smooth and stable
+
+Particle Filter
+Points:
+  - Scatter randomly
+Uses:
+  - Weighting 
+  -Resampling
+Can:
+   -Collapse
+   -Spread
+   - Split into multiple clusters
+
+ UKF- cannot represent two peaks - Because it  uses Gaussian assumption
+Particle Filter -  (can track both)
