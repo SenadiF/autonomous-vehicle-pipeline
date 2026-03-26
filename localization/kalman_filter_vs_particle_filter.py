@@ -16,7 +16,7 @@ np.random.seed(0)
 dt = 0.1
 steps = 100
 
-true_state = np.array([0.0, 0.0, 1.0, 0.5])
+true_state = np.array([0.1, 0.1, 1.0, 0.5])
 true_states = []
 measurements = []
 
@@ -25,7 +25,8 @@ def h(x):
     r = np.sqrt(px**2 + py**2)
     theta = np.arctan2(py, px)
     return np.array([r, theta])
-
+def normalize_angle(a):
+    return (a + np.pi) % (2 * np.pi) - np.pi
 for _ in range(steps):
     # motion
     true_state[0] += true_state[2] * dt
@@ -72,13 +73,13 @@ kf_est = []
 def H_jac(x):
     px, py = x[0], x[1]
     r = np.sqrt(px**2 + py**2)
-    if r < 1e-5: r = 1e-5
+    if r < 1e-3: r = 1e-3
     return np.array([
         [px/r, py/r, 0, 0],
         [-py/(r**2), px/(r**2), 0, 0]
     ])
 
-x_ekf = np.zeros(4)
+x_ekf = np.array([1.0, 1.0, 0.0, 0.0])
 P_ekf = np.eye(4)
 ekf_est = []
 
@@ -138,6 +139,7 @@ for z in measurements:
     Hk = H_jac(x_ekf)
     z_pred = h(x_ekf)
     y = z - z_pred
+    y[1] = normalize_angle(y[1])
 
     S = Hk @ P_ekf @ Hk.T + R
     K = P_ekf @ Hk.T @ np.linalg.inv(S)
@@ -171,17 +173,23 @@ for z in measurements:
     Pzz += R
 
     K = Pxz @ np.linalg.inv(Pzz)
-
+    y = z - z_pred
+    y[1] = normalize_angle(y[1])
+    
+    
     x_ukf = x_pred + K @ (z - z_pred)
     P_ukf = P_pred - K@Pzz@K.T
     ukf_est.append(x_ukf.copy())
 
     #  Particle Filter 
-    particles = particles + np.array([0,0,0,0]) + np.random.normal(0,0.1,(num_particles,4))
+    particles[:,0] += particles[:,2] * dt 
+    particles[:,1] += particles[:,3] * dt
+    particles += np.random.normal(0,0.1,(num_particles,4))
 
     # weight
     z_particles = np.array([h(p) for p in particles])
     diff = z_particles - z
+    diff[:,1] = np.array([normalize_angle(a) for a in diff[:,1]])
     dist = np.linalg.norm(diff, axis=1)
     weights = np.exp(-dist**2)
     weights += 1e-300
@@ -203,12 +211,13 @@ pf_est = np.array(pf_est)
 
 plt.figure()
 
-plt.plot(true_states[:,0], true_states[:,1], label="True")
-plt.plot(kf_est[:,0], kf_est[:,1], label="KF")
-plt.plot(ekf_est[:,0], ekf_est[:,1], label="EKF")
-plt.plot(ukf_est[:,0], ukf_est[:,1], label="UKF")
-plt.plot(pf_est[:,0], pf_est[:,1], label="Particle")
+plt.plot(true_states[:,0], true_states[:,1], 'k-', linewidth=3, label="True")
+plt.plot(kf_est[:,0], kf_est[:,1], 'r--', label="KF")
+plt.plot(ekf_est[:,0], ekf_est[:,1], 'go-', label="EKF", markersize=3)
+plt.plot(ukf_est[:,0], ukf_est[:,1], 'b-', label="UKF", markersize=3)
+plt.plot(pf_est[:,0], pf_est[:,1], 'm:', label="Particle", markersize=3)
 
 plt.legend()
 plt.title("Nonlinear Tracking Comparison")
 plt.show()
+print(np.isnan(ekf_est).any())
