@@ -1,0 +1,62 @@
+Why is EKF better for landmarks than particles?
+
+
+
+- If we used particles for landmarks
+
+Each landmark would need:
+
+many samples
+constant resampling
+high noise sensitivity
+
+Problem:
+
+Landmark space = continuous + high dimensional
+→ particles explode in cost
+ EKF advantage for landmarks
+
+EKF stores:
+
+(mean μ, covariance Σ)
+
+So instead of:
+
+1000 samples
+
+You only store:
+
+2 vectors
+Why EKF works well for landmarks?
+-Landmarks are locally Gaussian
+
+Once observed:
+
+error becomes “bell-shaped”
+
+perfect EKF assumption
+
+Landmarks don’t move
+
+-So their uncertainty:
+
+only shrinks over time
+
+-ideal for Kalman update
+
+3. Fast convergence
+
+Each observation:
+
+reduces covariance
+
+Particles alone would converge slowly.
+
+ Why NOT particle filter for landmarks?
+
+Because:
+
+too expensive
+redundant sampling
+unstable map estimates
+curse of dimensionality
