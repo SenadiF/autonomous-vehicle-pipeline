@@ -35,7 +35,7 @@ def lidar_scan(robot):
     measurements = []
 
     for a in angles:
-        for r in np.linspace(0, 25, 50):  # FIX: smoother rays + better resolution
+        for r in np.linspace(0, 25, 50):  
 
             xi = int(x + r*np.cos(a))
             yi = int(y + r*np.sin(a))
@@ -44,7 +44,7 @@ def lidar_scan(robot):
             if xi < 0 or yi < 0 or xi >= GRID_SIZE or yi >= GRID_SIZE:
                 break
 
-            # stop at first obstacle hit (IMPORTANT FIX)
+            # stop at first obstacle hit 
             if true_map[xi, yi] == 1:
                 measurements.append((xi, yi))
                 break
@@ -57,7 +57,7 @@ def update_grid(robot, measurements):
 
     for mx, my in measurements:
 
-        # convert to grid indices (IMPORTANT FIX)
+        # convert to grid indices
         gx = int(mx)
         gy = int(my)
 
@@ -96,7 +96,7 @@ for t in range(50):
 
 plt.figure(figsize=(6,6))
 
-# transpose fixes axis confusion
+# 
 plt.imshow(grid.T, origin='lower', cmap='gray')
 
 path = np.array(path)
