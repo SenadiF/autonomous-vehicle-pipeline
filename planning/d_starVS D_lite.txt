@@ -8,3 +8,6 @@ Simpler math
 Forward search (like A*)
 Uses replanning with node updates
 Easier to implement
+- uses priority queues
+-keeps track of  One step lookahead costs 
+- and the costs so far 
