@@ -1,0 +1,10 @@
+D*
+Complex incremental graph repair
+Backward search from goal
+
+
+ D* Lite
+Simpler math
+Forward search (like A*)
+Uses replanning with node updates
+Easier to implement
