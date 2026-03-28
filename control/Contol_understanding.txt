@@ -1,0 +1,11 @@
+PID - Is a controller that reduces an error to a target value 
+    - It tries to react to current + past error accumulation 
+
+Pure pursuit- Uses a lookahed , like get the path geometry as the input and output the steering toward a future point 
+
+
+PID - Reactive correction
+Pure pursuit- Predictive geometry chasing 
+
+Stanley controller= Combiantion of error + lookahead (used in self driving cars )
+
