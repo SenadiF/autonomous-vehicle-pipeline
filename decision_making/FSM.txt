@@ -1,0 +1,7 @@
+A robot is always in a state 
+
+State = Current behavior of the robot 
+
+Core idea :
+   State + Input -> Next state + action 
+
