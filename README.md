@@ -104,6 +104,7 @@ Each folder contains:
 - CARLA Simulator  
 - OpenCV  
 - TensorFlow  
+- PyTorch
 - NumPy / Matplotlib  
 
 ---
