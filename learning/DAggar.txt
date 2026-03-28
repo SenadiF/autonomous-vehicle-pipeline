@@ -1,0 +1,26 @@
+Imitation Learning - Instead of learning from rewards , learn from a data set .
+
+Imitation learning is not interacting with environment 
+It is :
+   a fixed data set 
+   no exploration 
+   no trial and error 
+Just copying behavior 
+
+Limitations - Distrbution shift problem
+              (It fails when it makes a small mistake , enters a state not in data set , then gets worse and worse )
+
+DAgger fixes the above problem - Dataset Aggregation 
+
+Expert drives -> Dataset
+Model tries ro drive 
+Expert watches model and corrects it 
+Add corrected data back 
+Retrain 
+Repeat 
+
+Expert in robotics is - Human driver , autopilot system , PID controller , rule based planenr 
+
+
+
+
