@@ -1,0 +1,13 @@
+Why sensor Fusion ?
+
+- Corrects wheel slip 
+- Enhances navigation accuracy 
+- Improves overall reliability
+- Optimizes robot performance 
+
+
+EKF is used here -  combines multipe senosrs 
+                    Makes educated gusesses 
+                    Handles noisy data 
+                    Adapts to change 
+
