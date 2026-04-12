@@ -1,0 +1,105 @@
+SLAM – Simultaneous Localization and Mapping
+
+ What is SLAM?
+
+SLAM stands for Simultaneous Localization and Mapping.
+
+It is the problem where a robot:
+
+Builds a map of an unknown environment
+Determines its own position in that environment at the same time
+
+ Key Concepts :
+-Localization
+
+Where am I in this environment?
+
+Estimating the robot’s position and orientation
+Usually represented as:
+(x, y, θ)
+
+- Mapping
+
+What does the environment look like?
+
+Building a representation of surroundings
+Examples:
+landmarks
+grid maps
+3D dense maps
+
+Why SLAM is needed?
+If you do only localization:Robot knows its position but needs a pre-built map
+If you do only mapping:  Robot can build a map but does not know its position accurately
+
+
+ Types of SLAM
+1 Feature-based SLAM (Landmark SLAM)
+Detects distinct features/landmarks in the environment
+Tracks these landmarks to estimate robot position
+Idea:
+
+Robot localizes itself relative to known features
+
+Algorithms:
+EKF-SLAM (Extended Kalman Filter SLAM)
+FastSLAM (Particle Filter + Landmark-based mapping)
+
+EKF-SLAM:
+Uses Gaussian assumption
+Linearizes motion and measurement models
+
+FastSLAM:
+Uses particle filters
+Each particle represents a possible robot trajectory + map estimate
+
+2. Grid-based SLAM (Occupancy Grid SLAM)
+Environment is represented as a grid
+Each grid cell represents probability of occupancy:
+Free
+Occupied
+Unknown
+
+Idea:
+
+Update probability of each grid cell using sensor data
+
+Characteristics:
+Uses LIDAR / sonar measurements
+Updates map over time using probabilistic rules
+Pros:
+Works in environments without clear features
+Cons:
+High memory usage
+Computationally expensive for large areas
+
+3. Dense SLAM
+
+Uses all available sensor data
+Often uses RGB-D cameras or depth sensors
+Builds dense 3D maps
+
+Output:
+Detailed 3D reconstruction of environment
+
+Examples:
+KinectFusion-style systems
+
+Pros:
+Very detailed and accurate maps
+
+Cons:
+Computationally heavy
+Requires strong hardware
+
+ Role of Filters in SLAM
+
+Filters are used to handle uncertainty in SLAM.
+
+Main role:
+Estimate robot localization (pose)
+In some SLAM types:
+Also estimate map features
+Examples:
+EKF-SLAM → uses Kalman Filter for pose + landmarks
+FastSLAM → uses Particle Filter for pose + map

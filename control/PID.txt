@@ -1,0 +1,19 @@
+PID =  How do I reduce the error between where I am and where I want to be ?
+
+Error= target - current 
+Then PID controls how to correct it .
+P - Proportional 
+  - Reacts to the current error 
+  - Bigger error - bigger correction 
+  - Simple but this causes oscillation 
+
+I - Integral 
+  - Reacts to past error 
+  - fixes steady state error 
+  -Accumulated the error over time 
+
+D - Derivative 
+  - aaareacts to future trend (rate of change)
+  - Prevents overshooting and stability 
+
+

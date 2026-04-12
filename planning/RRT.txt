@@ -1,0 +1,18 @@
+A*,Dijksta,D* - Assumes discrete grid world 
+
+RRT(Rapidly -Exploring Trees)
+
+Instead of searching every cell 
+It randomly explores space 
+
+Start at a point - > Randomly sample points -> Connect them like a tree -> Slowly grow towards the goal
+
+Works in continuous spaces 
+
+RRT gives a valid path , but path may not be optimal . 
+but RRT* adds optimization like , 
+
+it tries multiple nearby nodes and picked the one with the lowest cost (where cost =distance between start and node )
+
+and after adding a new node it checks nearby nodes and if a new node gives shorter oath it updats their parent 
+

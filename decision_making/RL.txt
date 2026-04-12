@@ -1,0 +1,22 @@
+Reinforcement learning - Learning from consequences 
+
+Agent -> Takes action -> gets reward -> Updated behavior
+
+Over time :
+   Tries new things(Exploration)
+   Uses what works(Exploitation)
+
+RL has 2 main categories :
+
+1. Value Based Methods 
+  - They learn how good is this state or action ?
+      - Q learning , SARSA , Deep Q network 
+2. Policy -based method 
+  - They learn , What action should i take directly ?
+   - eg : Policy gradients , Reinforce 
+
+Actor - critic (Hybrid)
+  Actor - Decides action 
+  Critic - Evaluates action 
+
+GOAL is the same but only differ by the way they learn . 

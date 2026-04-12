@@ -1,0 +1,90 @@
+Particle Sampling (Particle Filter)
+
+Concept:
+- Represents the belief of a system using many random samples (particles)
+- Each particle represents a possible state of the system
+
+Instead of:
+Mean + Covariance (Kalman Filters)
+
+We use:
+A set of particles + weights
+
+--------------------------------------------------
+
+State Representation:
+
+Instead of estimating:
+x = single value
+
+We maintain:
+{ x₁, x₂, x₃, ..., xₙ }
+
+Each particle:
+- Represents a possible position and velocity
+- Has an associated weight: wᵢ
+
+--------------------------------------------------
+
+Flow of Particle Filter:
+
+1. Initialization
+- Generate N particles randomly around an initial guess
+
+2. Prediction (Sampling)
+- Each particle is moved using the motion model:
+
+  x_t^(i) = f(x_(t-1)^(i)) + noise
+
+- Noise is added to model uncertainty
+
+3. Update (Weighting)
+- Compare each particle with the measurement:
+  - Particles closer to measurement → higher weight
+  - Particles far from measurement → lower weight
+
+4. Resampling
+- Particles are resampled based on weights
+- High-weight particles are duplicated
+- Low-weight particles are removed
+
+--------------------------------------------------
+
+Comparison with Other Filters:
+
+Method             Representation           Strength
+--------------------------------------------------------
+KF                 Mean + Covariance        Fast, linear systems
+EKF                Linearized Gaussian      Handles mild nonlinearity
+UKF                Sigma Points             Better nonlinear approximation
+Particle Filter    Many Samples             Handles any distribution
+
+--------------------------------------------------
+
+Why Particle Filters are Powerful:
+
+- Can represent multiple hypotheses
+  (e.g., object could be in multiple locations)
+
+- Can handle occlusion
+  (temporary loss of measurement)
+
+- Works well with highly nonlinear systems
+  (robotics, SLAM)
+
+--------------------------------------------------
+
+Key Difference:
+
+Kalman Filters:
+- Approximate the distribution (assume Gaussian)
+
+Particle Filters:
+- Represent the distribution directly using samples
+
+--------------------------------------------------
+
+Limitations:
+
+- Computationally expensive
+- Requires careful tuning (number of particles, noise)

@@ -1,0 +1,9 @@
+PRM - Probabilsitic Road map
+
+Here a full graph of the environment is built first(many randomes nodes and multiple connections between them) then 
+traverse.
+
+A*  → grid search (structured)
+RRT → single-tree random exploration
+RRT* → optimized tree exploration
+PRM → full graph roadmap planning

@@ -104,6 +104,10 @@ Each folder contains:
 - CARLA Simulator  
 - OpenCV  
 - TensorFlow  
+- PyTorch
 - NumPy / Matplotlib  
 
 ---
+
+## NOTE 
+- #The accuracy of the genrated graphs r low -In side the logic its not mathematically perfect as I produced the graphs to get an understanding about what happens inside the algorithms and filters .

@@ -1,0 +1,19 @@
+FSM = Rules (Reactive logic)
+MDP =  Decison making with uncertainty + future reward 
+
+Opitimal decison making 
+
+MDP - (S , A , P , R ,γ )
+
+S- states (The states the Robot can be)
+A- actions
+P- Transition Probability 
+R - Reward 
+γ- Discount factor  
+     - How much we care about the future 
+     -γ close to 1 - long term thinkinb 
+     -γ small - short sighted 
+ 
+Core idea - 
+  Choose the action that maximizes the total future reward 
+
